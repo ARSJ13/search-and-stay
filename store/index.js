@@ -35,7 +35,7 @@ export const actions = {
         }
       })
       .then(({ data }) => {
-        commit('SET_USER', data.result.access_token)
+        commit('SET_TOKEN', data.result.access_token)
         localStorage.setItem('av_token', `${data.result.access_token}`)
         this.$router.push({ path: '/' })
         return data
@@ -49,10 +49,12 @@ export const actions = {
     return await this.$axios
       .$get('/admin/calendar_patterns')
       .then(({ data }) => {
-        commit('SET_LIST', data)
+        commit('SET_LIST', data.entities)
+        commit('SET_PAGINATION', data.pagination)
         return data
       })
       .catch((err) => {
+        localStorage.removeItem('av_token')
         return err
       })
   }
