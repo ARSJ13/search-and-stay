@@ -57,18 +57,22 @@
 export default {
   data () {
     return {
-      mail: '',
-      password: '',
+      mail: null,
+      password: null,
       loading: false,
       showAlert: false
     }
   },
   computed: {
     validationEmail () {
-      return this.mail.includes('@') && (this.mail.endsWith('br') || this.mail.endsWith('com'))
+      if (this.mail != null) {
+        return this.mail.includes('@') && (this.mail.endsWith('br') || this.mail.endsWith('com'))
+      }
     },
     validationPassword () {
-      return this.password.length >= 8
+      if (this.password != null) {
+        return this.password.length >= 8
+      }
     }
   },
   methods: {
