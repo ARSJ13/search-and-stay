@@ -6,7 +6,7 @@
       :title="dataPattern.id ? `Edit Color Pattern nº ${dataPattern.id}` : 'Create New Color Pattern'"
       @show="showModal"
       @hidden="resetModal"
-      @ok="handleOk"
+      @ok="handleSubmit"
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <b-form-group
@@ -36,7 +36,6 @@
           ></b-form-input>
         </b-form-group>
         <b-form-group
-          v-if="!dataPattern.id"
           label="Active"
           label-for="active"
         >
@@ -92,17 +91,28 @@ import { mapState } from 'vuex'
         this.textState = null
         this.$emit('close')
       },
-      handleOk(bvModalEvent) {
-        bvModalEvent.preventDefault()
-        this.handleSubmit()
-      },
-      handleSubmit() {
+      async handleSubmit() {
         if (!this.checkFormValidity()) {
           return
         }
-        
+        this.$emit('update', true)
+        const data = {
+          id: this.dataPattern.id,
+          bg: this.bg,
+          text: this.text,
+          active: this.active ? 1 : 0
+        }
+        if (this.dataPattern.id) {
+          await this.$store.dispatch('update', data)
+            .then(() => this.$emit('update', false))
+            .catch(() => this.$emit('update', false))
+        } else {
+          await this.$store.dispatch('create', data)
+            .then(() => this.$emit('update', false))
+            .catch(() => this.$emit('update', false))
+        }
         this.$nextTick(() => {
-          this.$bvModal.hide('modal-prevent-closing')
+          this.$bvModal.hide('modal-update')
         })
       }
     }
