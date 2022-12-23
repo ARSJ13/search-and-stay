@@ -7,6 +7,7 @@
       @show="showModal"
       @hidden="resetModal"
       @ok="handleSubmit"
+      @input="checkFormValidity"
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <b-form-group
@@ -91,7 +92,8 @@ import { mapState } from 'vuex'
         this.textState = null
         this.$emit('close')
       },
-      async handleSubmit() {
+      async handleSubmit(ev) {
+        ev.preventDefault()
         if (!this.checkFormValidity()) {
           return
         }

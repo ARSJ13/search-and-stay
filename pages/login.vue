@@ -4,11 +4,11 @@
       <img class="mb-5 align-self-center" src="~/assets/logo.png" alt="logo" width="360" />
       <h1>Login</h1>
       <p class="mb-5">
-        Seja bem vindo !
+        Be Welcome !
       </p>
       <b-form-group @submit.stop.prevent>
         <label for="mail">
-          E-mail
+          Email
         </label>
         <b-form-input
           id="mail"
@@ -18,15 +18,15 @@
           autocomplete="false"
         />
         <b-form-invalid-feedback :state="validationEmail">
-          Por favor informar um e-mail válido.
+          Please enter a valid email address.
         </b-form-invalid-feedback>
         <b-form-valid-feedback :state="validationEmail">
-          E-mail válido.
+          Valid email.
         </b-form-valid-feedback>
       </b-form-group>
       <b-form-group @submit.stop.prevent>
         <label for="password">
-          Senha
+          Password
         </label>
         <b-form-input
           id="password"
@@ -36,18 +36,18 @@
           autocomplete="false"
         />
         <b-form-invalid-feedback :state="validationPassword">
-          A senha deve possuir 8 ou mais caracteres.
+          The password must be 8 or more characters long.
         </b-form-invalid-feedback>
         <b-form-valid-feedback :state="validationPassword">
-          Senha válida.
+          Valid password.
         </b-form-valid-feedback>
       </b-form-group>
       <b-button variant="primary" @click="logged">
-        Logar
+        Log in
         <b-spinner v-if="loading" small />
       </b-button>
       <b-alert v-model="showAlert" class="mt-4" variant="danger" dismissible>
-        Login inválido. Tente novamente!
+        Invalid login. Try again!
       </b-alert>
     </b-container>
   </div>
